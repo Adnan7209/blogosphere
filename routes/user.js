@@ -25,12 +25,21 @@ router.get('/login',(req,res)=>{
 })
 
 router.post('/login',async(req,res)=>{
-    const {email,password} = req.body;
-    const user=await User.matchPassword(email,password);
+    try {
+        const {email,password} = req.body;
+    const token=await User.matchPasswordAndGenerateToken(email,password);
+
     
-    console.log('User',user);
-    return res.redirect('/');
+    // console.log('User',user);
+    return res.cookie("token",token).redirect('/');
+    } catch (error) {
+        res.render('login',{error:"incorrect passowrd"});
+    }
+    
 })
 
+router.get('/logout',(req,res)=>{
+    res.clearCookie("token").redirect('/');
+})
 
 module.exports = router;
