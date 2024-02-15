@@ -1,24 +1,27 @@
-const mongoose =require("mongoose");
+const mongoose = require("mongoose");
 
-const blogSchema =  new mongoose.Schema({
-    title:{
-        type:String,
-        required:true,
+const blogSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
     },
-    body:{
-        type:String,
-        required:true,
+    body: {
+      type: String,
+      required: true,
     },
-    coverImageUrl:{
-        type:String,
-        required:false,
+    coverImageUrl: {
+      type: String,
+      required: false,
     },
-    createdBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"user",
-    }
-},{timestamps:true});
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
+  },
+  { timestamps: true }
+);
 
-const Blog = mongoose.model("blogs",blogSchema);
+const Blog = mongoose.model("blogs", blogSchema);
 
 module.exports = Blog;
